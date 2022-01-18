@@ -27,7 +27,7 @@ class MyHonePage extends StatelessWidget {
               color: Color(0xFFF2F2F2),
             ),
             Card(
-              child: Text('List of TX')
+              child: Text('List of TX'),
             ),
           ],
         ),
