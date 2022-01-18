@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 void main() {
   runApp(MyHonePage());
 }
@@ -24,7 +25,7 @@ class MyHonePage extends StatelessWidget {
                 child: Text('Chart'),
                 width: double.infinity,
               ),
-              color: Color(0xFFF2F2F2),
+              color: Color(0xFFEF2B2B),
             ),
             Card(
               child: Text('List of TX'),
