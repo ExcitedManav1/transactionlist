@@ -53,7 +53,7 @@ class MyHonePage extends StatelessWidget {
                         ),
                         Column(
                           children: <Widget>[
-                            Text(tx.title),
+                            Text(tx.title,style: GoogleFonts.dongle(),),
                             Text(tx.date.toString())
                           ],
                         )
