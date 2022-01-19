@@ -10,7 +10,7 @@ class MyHonePage extends StatelessWidget {
   final List<Transaction> transaction = [
     Transaction(
         id: 'T1', title: 'IceCream', amount: 30.00, date: DateTime.now()),
-    Transaction(id: 'T1', title: 'Pizza', amount: 250.00, date: DateTime.now()),
+    Transaction(id: 'T1', title: 'Pizzaaaa', amount: 250.00, date: DateTime.now()),
   ];
 
   @override
