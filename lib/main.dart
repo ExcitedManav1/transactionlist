@@ -1,22 +1,15 @@
 import 'dart:core';
-import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
-import 'package:transactionlist/transaction.dart';
+import './widgets/user_transaction.dart';
 
 void main() {
   runApp(MyHonePage());
 }
 
 class MyHonePage extends StatelessWidget {
-  final List<Transaction> transaction = [
-    Transaction(
-        id: 'T1', title: 'IceCream', amount: 30.00, date: DateTime.now()),
-    Transaction(id: 'T1', title: 'Pizza', amount: 25.00, date: DateTime.now()),
-  ];
-  final titleInput = TextEditingController();
-  final amountInput  = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,82 +21,21 @@ class MyHonePage extends StatelessWidget {
             style: GoogleFonts.dongle(fontSize: 40),
           ),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Card(
-              child: Container(
-                child: Text('Chart'),
-                width: double.infinity,
-              ),
-              color: Color(0xFFEF2B2B),
-            ),
-            Card(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    TextField(
-                      decoration: InputDecoration(labelText: 'Title'),
-                      controller: titleInput,
-                    ),
-                    TextField(
-                      decoration: InputDecoration(labelText: 'Amount'),
-                      controller: amountInput,
-                    ),
-                    FlatButton(
-                        onPressed: () {
-                          print(titleInput.text);
-                          print(amountInput.text);
-                        }, child: Text('Add Transaction')),
-                  ],
-                  crossAxisAlignment: CrossAxisAlignment.end,
+        body: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Card(
+                child: Container(
+                  child: Text('Chart'),
+                  width: double.infinity,
                 ),
-                padding: EdgeInsets.all(10),
+                color: Color(0xFFEF2B2B),
               ),
-            ),
-            Card(
-              child: Column(
-                children: transaction.map((tx) {
-                  return Card(
-                    child: Row(
-                      children: [
-                        Container(
-                          child: Text(
-                            '\$${tx.amount}',
-                            style: GoogleFonts.dongle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 28,
-                              color: Color(0xFFD22E10),
-                            ),
-                          ),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                            color: Color(0xFFD22E10),
-                            width: 2,
-                          )),
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 15),
-                          padding: EdgeInsets.all(10),
-                        ),
-                        Column(
-                          children: <Widget>[
-                            Text(
-                              tx.title,
-                              style: GoogleFonts.dongle(
-                                  fontSize: 25, fontWeight: FontWeight.bold),
-                            ),
-                            Text(DateFormat.yMMMd().format(tx.date)),
-                          ],
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                        )
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ],
+              UserTransaction(),
+            ],
+          ),
         ),
       ),
     );
