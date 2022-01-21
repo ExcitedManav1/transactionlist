@@ -1,5 +1,8 @@
+import 'dart:core';
+import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:transactionlist/transaction.dart';
 
 void main() {
@@ -10,8 +13,10 @@ class MyHonePage extends StatelessWidget {
   final List<Transaction> transaction = [
     Transaction(
         id: 'T1', title: 'IceCream', amount: 30.00, date: DateTime.now()),
-    Transaction(id: 'T1', title: 'Pizza', amount: 250.00, date: DateTime.now()),
+    Transaction(id: 'T1', title: 'Pizza', amount: 25.00, date: DateTime.now()),
   ];
+  final titleInput = TextEditingController();
+  final amountInput  = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +40,46 @@ class MyHonePage extends StatelessWidget {
               color: Color(0xFFEF2B2B),
             ),
             Card(
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Title'),
+                      controller: titleInput,
+                    ),
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Amount'),
+                      controller: amountInput,
+                    ),
+                    FlatButton(
+                        onPressed: () {
+                          print(titleInput.text);
+                          print(amountInput.text);
+                        }, child: Text('Add Transaction')),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                ),
+                padding: EdgeInsets.all(10),
+              ),
+            ),
+            Card(
               child: Column(
                 children: transaction.map((tx) {
                   return Card(
                     child: Row(
                       children: [
                         Container(
-                          child: Text(tx.amount.toString()),
+                          child: Text(
+                            '\$${tx.amount}',
+                            style: GoogleFonts.dongle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 28,
+                              color: Color(0xFFD22E10),
+                            ),
+                          ),
                           decoration: BoxDecoration(
                               border: Border.all(
-                            color: Color(0xFF000000),
+                            color: Color(0xFFD22E10),
                             width: 2,
                           )),
                           margin: EdgeInsets.symmetric(
@@ -53,9 +88,14 @@ class MyHonePage extends StatelessWidget {
                         ),
                         Column(
                           children: <Widget>[
-                            Text(tx.title,style: GoogleFonts.dongle(),),
-                            Text(tx.date.toString())
+                            Text(
+                              tx.title,
+                              style: GoogleFonts.dongle(
+                                  fontSize: 25, fontWeight: FontWeight.bold),
+                            ),
+                            Text(DateFormat.yMMMd().format(tx.date)),
                           ],
+                          crossAxisAlignment: CrossAxisAlignment.start,
                         )
                       ],
                     ),
