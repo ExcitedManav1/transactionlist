@@ -12,8 +12,6 @@ class UserTransaction extends StatefulWidget {
 }
 
 class _UserTransactionState extends State<UserTransaction> {
-  final titleInput = TextEditingController();
-  final amountInput = TextEditingController();
   final List<Transaction> _usertransactions = [];
 
   void _addTransaction(String txTitle, double txAmount) {

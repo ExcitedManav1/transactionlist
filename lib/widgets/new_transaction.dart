@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
-import './user_transaction.dart';
 
 class NewTransaciton extends StatelessWidget {
   final inputTitle = TextEditingController();
   final inputAmount = TextEditingController();
   final Function addTx;
 
+  void submitData() {
+    final title = inputTitle.text;
+    final amount = double.parse(inputAmount.text);
+    if (title.isEmpty || amount <= 0) {
+      return;
+    }
+    addTx(inputTitle.text, double.parse(inputAmount.text));
+  }
 
   NewTransaciton(this.addTx);
 
@@ -18,16 +25,16 @@ class NewTransaciton extends StatelessWidget {
             TextField(
               decoration: InputDecoration(labelText: 'Title'),
               controller: inputTitle,
+              onSubmitted: (_) => submitData(),
             ),
             TextField(
               decoration: InputDecoration(labelText: 'Amount'),
               controller: inputAmount,
+              keyboardType: TextInputType.number,
+              onSubmitted: (_) => submitData(),
             ),
             FlatButton(
-                onPressed:(){
-                  addTx(inputTitle.text,double.parse(inputAmount.text));
-                } ,
-                child: Text('Add Transaction')),
+                onPressed: submitData, child: Text('Add Transaction')),
           ],
           crossAxisAlignment: CrossAxisAlignment.end,
         ),

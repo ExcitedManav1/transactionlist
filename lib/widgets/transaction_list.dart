@@ -19,7 +19,7 @@ TransactionList(this.transactionList);
               children: [
                 Container(
                   child: Text(
-                    '\$${transactionList[index].amount}',
+                    '\$${transactionList[index].amount.toStringAsFixed(2)}',
                     style: GoogleFonts.dongle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28,
