@@ -1,44 +1,91 @@
 import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import './widgets/user_transaction.dart';
+import 'package:sliding_sheet/sliding_sheet.dart';
+import 'package:transactionlist/widgets/new_transaction.dart';
+import 'package:transactionlist/widgets/transaction_list.dart';
+
+import './models/transaction.dart';
 
 void main() {
   runApp(MyHonePage());
 }
 
-class MyHonePage extends StatelessWidget {
+class MyHonePage extends StatefulWidget {
+  @override
+  State<MyHonePage> createState() => _MyHonePageState();
+}
 
+class _MyHonePageState extends State<MyHonePage> {
+  final List<Transaction> _usertransactions = [];
 
+  void _addTransaction(String txTitle, double txAmount) {
+    final newtx = Transaction(
+        id: DateTime.now().toString(),
+        title: txTitle,
+        amount: txAmount,
+        date: DateTime.now());
+    setState(() {
+      _usertransactions.add(newtx);
+    });
+  }
+
+  void startAddNewTransaction(BuildContext ctx) {
+    showSlidingBottomSheet(ctx, builder: (_) {
+      return SlidingSheetDialog(
+        cornerRadius: 10,
+        builder: (_, state) {
+          return GestureDetector(
+              onTap: () {},
+              behavior: HitTestBehavior.opaque,
+              child: NewTransaciton(_addTransaction));
+        },
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text(
-            'Your Transactions',
-            style: GoogleFonts.dongle(fontSize: 40),
+      theme: ThemeData(primarySwatch: Colors.lightGreen,accentColor: Colors.red),
+      home: Builder(builder: (context) {
+        return Scaffold(
+          floatingActionButton: FloatingActionButton(
+            onPressed: () => startAddNewTransaction(context),
+            child: Icon(Icons.add),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              Card(
-                child: Container(
-                  child: Text('Chart'),
-                  width: double.infinity,
-                ),
-                color: Color(0xFFEF2B2B),
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                onPressed: () => startAddNewTransaction(context),
+                icon: Icon(Icons.add_circle),
               ),
-              UserTransaction(),
             ],
+            title: Text(
+              'Your Transactions',
+              style: GoogleFonts.dongle(fontSize: 40),
+            ),
           ),
-        ),
-      ),
+          body: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                Card(
+                  child: Container(
+                    child: Text('Chart'),
+                    width: double.infinity,
+                  ),
+                  color: Theme.of(context).primaryColor,
+                ),
+                TransactionList(_usertransactions),
+              ],
+            ),
+          ),
+        );
+      }),
     );
   }
 }

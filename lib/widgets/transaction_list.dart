@@ -4,8 +4,8 @@ import 'package:intl/intl.dart';
 import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
-final List<Transaction> transactionList;
-TransactionList(this.transactionList);
+  final List<Transaction> transactionList;
+  TransactionList(this.transactionList);
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +23,12 @@ TransactionList(this.transactionList);
                     style: GoogleFonts.dongle(
                       fontWeight: FontWeight.bold,
                       fontSize: 28,
-                      color: Color(0xFFD22E10),
+                      color: Theme.of(context).primaryColor,
                     ),
                   ),
                   decoration: BoxDecoration(
                       border: Border.all(
-                        color: Color(0xFFD22E10),
+                        color: Theme.of(context).primaryColor,
                         width: 2,
                       )),
                   margin: EdgeInsets.symmetric(
