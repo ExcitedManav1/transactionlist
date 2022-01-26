@@ -49,13 +49,25 @@ class _MyHonePageState extends State<MyHonePage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(primarySwatch: Colors.lightGreen,accentColor: Colors.red),
+      theme: ThemeData(
+          primarySwatch: Colors.lightGreen,
+          accentColor: Colors.red,
+          textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: GoogleFonts.dongle(
+                  fontSize: 40, fontWeight: FontWeight.bold)),
+          appBarTheme: AppBarTheme(
+              textTheme: ThemeData.light().textTheme.copyWith(
+                    headline6: GoogleFonts.dongle(
+                        fontSize: 40, fontWeight: FontWeight.normal),
+                  ))),
       home: Builder(builder: (context) {
         return Scaffold(
           floatingActionButton: FloatingActionButton(
             onPressed: () => startAddNewTransaction(context),
             child: Icon(Icons.add),
           ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
           appBar: AppBar(
             actions: [
               IconButton(
@@ -65,7 +77,7 @@ class _MyHonePageState extends State<MyHonePage> {
             ],
             title: Text(
               'Your Transactions',
-              style: GoogleFonts.dongle(fontSize: 40),
+              style: Theme.of(context).appBarTheme.textTheme!.headline6,
             ),
           ),
           body: SingleChildScrollView(

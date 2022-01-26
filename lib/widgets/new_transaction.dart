@@ -41,7 +41,7 @@ class _NewTransacitonState extends State<NewTransaciton> {
               keyboardType: TextInputType.number,
               onSubmitted: (_) => submitData(),
             ),
-            FlatButton(
+            ElevatedButton(
                 onPressed: submitData, child: Text('Add Transaction')),
           ],
           crossAxisAlignment: CrossAxisAlignment.end,
