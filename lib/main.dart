@@ -3,6 +3,7 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sliding_sheet/sliding_sheet.dart';
+import 'package:transactionlist/widgets/chart.dart';
 import 'package:transactionlist/widgets/new_transaction.dart';
 import 'package:transactionlist/widgets/transaction_list.dart';
 
@@ -19,6 +20,12 @@ class MyHonePage extends StatefulWidget {
 
 class _MyHonePageState extends State<MyHonePage> {
   final List<Transaction> _usertransactions = [];
+
+  List<Transaction> get _recentTransaction {
+    return _usertransactions.where((tx) {
+      return tx.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   void _addTransaction(String txTitle, double txAmount) {
     final newtx = Transaction(
@@ -85,13 +92,7 @@ class _MyHonePageState extends State<MyHonePage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
-                Card(
-                  child: Container(
-                    child: Text('Chart'),
-                    width: double.infinity,
-                  ),
-                  color: Theme.of(context).primaryColor,
-                ),
+                Chart(_recentTransaction),
                 TransactionList(_usertransactions),
               ],
             ),
